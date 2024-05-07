@@ -12,8 +12,9 @@ import {
 } from "@chakra-ui/react";
 
 const ArticleCard = ({ article }) => {
+  const articleDate = new Date(article.created_at).toDateString();
   return (
-    <Card maxW="lg">
+    <Card maxW="lg" className="article">
       <CardBody>
         <Image
           src={article.article_img_url}
@@ -32,12 +33,11 @@ const ArticleCard = ({ article }) => {
         </Stack>
       </CardBody>
       <Divider />
-      <CardFooter>
-        <ButtonGroup spacing="2">
+      <CardFooter className="article-footer">
           <Button variant="solid" colorScheme="teal">
             Read More
           </Button>
-        </ButtonGroup>
+          <Text color='teal'>{articleDate}</Text>
       </CardFooter>
     </Card>
   );

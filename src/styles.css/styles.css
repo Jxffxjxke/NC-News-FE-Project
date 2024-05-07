@@ -3,11 +3,21 @@
 }
 
 .topics-btn:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 .author-votes-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.article-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.article:hover {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }

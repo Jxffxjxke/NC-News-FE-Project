@@ -1,14 +1,13 @@
-import { useState } from "react";
-import ArticlesList from "./components.jsx/ArticlesList";
-import NavBar from "./components.jsx/NavBar";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Home from "./pages/Home";
 
 function App() {
-  const [topic, setTopic] = useState("");
   return (
-    <>
-      <NavBar />
-      <ArticlesList topic={topic} />
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+      </Routes>
+    </Router>
   );
 }
 
