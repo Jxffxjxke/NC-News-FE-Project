@@ -1,17 +1,14 @@
 import { Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import getTopics from "../utils/getTopics";
 
 const TopicsMenu = () => {
   const [currentTopics, setCurrentTopics] = useState([]);
 
   useEffect(() => {
-    fetch("https://project-nc-news-xdpp.onrender.com/api/topics")
-      .then((data) => {
-        return data.json();
-      })
-      .then(({ topics }) => {
-        setCurrentTopics(topics);
-      });
+    getTopics().then((topics) => {
+      setCurrentTopics(topics);
+    });
   }, []);
 
   return (

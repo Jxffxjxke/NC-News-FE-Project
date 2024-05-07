@@ -1,22 +1,39 @@
-import { SimpleGrid } from "@chakra-ui/react";
+import { SimpleGrid, Skeleton, Stack } from "@chakra-ui/react";
 import ArticleCard from "./ArticleCard";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-
+import getArticles from "../utils/getArticles";
+import ArticleSkeleton from "./ArticleSkeleton";
 
 const ArticlesList = () => {
-  const topic = useParams();
   const [currentArticles, setCurrentArticles] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
-    fetch(`https://project-nc-news-xdpp.onrender.com/api/articles`)
-      .then((data) => {
-        return data.json();
-      })
-      .then(({ articles }) => {
+    getArticles()
+      .then((articles) => {
         setCurrentArticles(articles);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }, []);
 
+  if (isLoading) {
+    return (
+      <SimpleGrid
+        spacing={6}
+        templateColumns="repeat(auto-fill, minmax(400px, 1fr))"
+      >
+        <ArticleSkeleton />
+        <ArticleSkeleton />
+        <ArticleSkeleton />
+        <ArticleSkeleton />
+        <ArticleSkeleton />
+        <ArticleSkeleton />
+
+      </SimpleGrid>
+    );
+  }
   return (
     <SimpleGrid
       spacing={3}
