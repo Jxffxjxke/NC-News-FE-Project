@@ -8,11 +8,11 @@ import {
   Button,
   Text,
   Divider,
-  ButtonGroup,
 } from "@chakra-ui/react";
 
 const ArticleCard = ({ article }) => {
   const articleDate = new Date(article.created_at).toDateString();
+
   return (
     <Card maxW="lg" className="article">
       <CardBody>
@@ -34,10 +34,16 @@ const ArticleCard = ({ article }) => {
       </CardBody>
       <Divider />
       <CardFooter className="article-footer">
-          <Button variant="solid" colorScheme="teal">
-            Read More
-          </Button>
-          <Text color='teal'>{articleDate}</Text>
+        <Button
+          variant="solid"
+          colorScheme="teal"
+          onClick={() => {
+            window.location.replace(`/articles/${article.article_id}`);
+          }}
+        >
+          Read More
+        </Button>
+        <Text color="teal">{articleDate}</Text>
       </CardFooter>
     </Card>
   );
