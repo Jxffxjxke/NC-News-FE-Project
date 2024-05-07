@@ -9,6 +9,7 @@ import {
   Text,
   Divider,
 } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 
 const ArticleCard = ({ article }) => {
   const articleDate = new Date(article.created_at).toDateString();
@@ -34,15 +35,7 @@ const ArticleCard = ({ article }) => {
       </CardBody>
       <Divider />
       <CardFooter className="article-footer">
-        <Button
-          variant="solid"
-          colorScheme="teal"
-          onClick={() => {
-            window.location.replace(`/articles/${article.article_id}`);
-          }}
-        >
-          Read More
-        </Button>
+        <Link to={`/articles/${article.article_id}`}><Button colorScheme="teal">Read More</Button></Link>
         <Text color="teal">{articleDate}</Text>
       </CardFooter>
     </Card>
