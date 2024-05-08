@@ -19,7 +19,7 @@ const ArticlePage = () => {
         setCurrentArticle(article);
       })
       .then(() => {
-        getComments(article_id).then(({ comments }) => {
+        getComments(article_id).then((comments) => {
           setCurrentComments(comments);
           setIsLoading(false);
         });
@@ -35,7 +35,7 @@ const ArticlePage = () => {
   }, [article_id]);
 
   if (isLoading) {
-    return <ArticleSkeleton/>;
+    return <ArticleSkeleton />;
   } else {
     return (
       <main>

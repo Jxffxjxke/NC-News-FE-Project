@@ -1,5 +1,4 @@
 import {
-  Avatar,
   Box,
   Button,
   Card,
@@ -9,10 +8,9 @@ import {
   Image,
   Text,
 } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
-import CommentsSection from "./CommentsSection";
+import React from "react";
 
-const Article = ({ article, comments }) => {
+const Article = ({ article }) => {
   return (
     <>
       <Card>
@@ -20,18 +18,15 @@ const Article = ({ article, comments }) => {
         <Image src={article.article_img_url} />
         <Text p="2rem">{article.body}</Text>
         <CardFooter>
-          <Flex spacing="4">
-            <Flex flex="1" gap="4" alignItems="center" flexWrap="wrap">
-              <Box>
-                <Text>Written by {article.author}</Text>
-              </Box>
-              <Box>{new Date(article.created_at).toDateString()}</Box>
-            </Flex>
+          <Flex flex="1" gap="4" justifyContent="space-between">
+            <Box>
+              <Text>
+                Written by <Text color="teal">{article.author}</Text>
+              </Text>
+            </Box>
+            <Box>{new Date(article.created_at).toDateString()}</Box>
+            <Button colorScheme="teal">Like {article.votes}</Button>
           </Flex>
-        </CardFooter>
-        <CardFooter className="article-button-footer" mt="1rem">
-          <Button colorScheme="teal">Comments {article.comment_count}</Button>
-          <Button colorScheme="teal">Like {article.votes}</Button>
         </CardFooter>
       </Card>
     </>
