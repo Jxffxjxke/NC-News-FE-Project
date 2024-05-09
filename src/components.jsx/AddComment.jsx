@@ -1,4 +1,6 @@
 import {
+  Alert,
+  AlertIcon,
   Avatar,
   Box,
   Button,
@@ -11,30 +13,32 @@ import {
 import { useState } from "react";
 import { postComment } from "../utils/postComment";
 import { useParams } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "../contexts/User";
 
 export const AddComment = ({ setCurrentComments }) => {
   const [commentInput, setCommentInput] = useState("");
   const [isValid, setIsValid] = useState(true);
   const { article_id } = useParams();
+  const { user } = useContext(UserContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (commentInput.trim() === "") {
       setIsValid(false);
-      return;
     }
     setIsValid(true);
     setCurrentComments((prevComments) => [
       {
         body: commentInput,
-        author: "daydream22",
+        author: user.username ? user.username : 'Guest',
         created_at: new Date().toISOString(),
         votes: 0,
         comment_id: 1,
       },
       ...prevComments,
     ]);
-    postComment(commentInput, article_id, "daydream22");
+    postComment(commentInput, article_id, user.username);
     setCommentInput("");
   };
 
@@ -43,9 +47,9 @@ export const AddComment = ({ setCurrentComments }) => {
       <CardHeader>
         <Flex spacing="4">
           <Flex flex="1" gap="4" alignItems="center" flexWrap="wrap">
-            <Avatar src="https://mrmen.com/cdn/shop/t/37/assets/svg--character--mr-daydream.svg?v=143191699983214835881695746663" />
+            <Avatar src={user.avatar_url} />
             <Box>
-              <Heading size="md">daydream22</Heading>
+              <Heading size="md">{user.username}</Heading>
             </Box>
           </Flex>
         </Flex>
