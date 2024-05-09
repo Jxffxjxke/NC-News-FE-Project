@@ -51,7 +51,10 @@ const ArticlePage = () => {
       <main>
         <Article article={currentArticle} />
         <AddComment user={user} setCurrentComments={setCurrentComments} />
-        <CommentsSection comments={currentComments} />
+        <CommentsSection
+          comments={currentComments}
+          setCurrentComments={setCurrentComments}
+        />
       </main>
     );
   }

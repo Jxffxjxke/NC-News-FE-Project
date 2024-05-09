@@ -1,4 +1,10 @@
 import {
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogOverlay,
   Avatar,
   Badge,
   Box,
@@ -9,17 +15,31 @@ import {
   Flex,
   Heading,
   Text,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons";
 import getUserImg from "../utils/getUserImg";
-import {useState } from "react";
+import React, { useState, useContext } from "react";
+import { UserContext } from "../contexts/User";
+import { removeCommentHandler } from "../utils/removeCommentHandler";
 
-const Comment = ( { comment } ) =>
-{
+const Comment = ({ comment, comments, setComments }) => {
+  const { user } = useContext(UserContext);
   const [userImg, setUserImg] = useState("");
+  const commentId = comment.comment_id;
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const cancelRef = React.useRef();
+
   getUserImg(comment.author).then((img) => {
     setUserImg(img);
   });
+
+  const handleRemoveComment = (commentId) => {
+    setComments((currComments) => {
+      return currComments.filter((comment) => comment.comment_id !== commentId);
+    });
+  };
+
   return (
     <Card border="1px solid grey" m="1rem">
       <CardHeader>
@@ -33,9 +53,52 @@ const Comment = ( { comment } ) =>
               </Badge>
             </Box>
           </Flex>
+          {comment.author === user.username && (
+            <>
+              <DeleteIcon
+                key={commentId}
+                className="remove-comment"
+                ml="auto"
+                onClick={onOpen}
+              />
+              <AlertDialog
+                isOpen={isOpen}
+                leastDestructiveRef={cancelRef}
+                onClose={onClose}
+              >
+                <AlertDialogOverlay>
+                  <AlertDialogContent>
+                    <AlertDialogHeader fontSize="lg" fontWeight="bold">
+                      Delete Comment
+                    </AlertDialogHeader>
+
+                    <AlertDialogBody>
+                      Are you sure? You can't undo this action afterwards.
+                    </AlertDialogBody>
+
+                    <AlertDialogFooter>
+                      <Button ref={cancelRef} onClick={onClose}>
+                        Cancel
+                      </Button>
+                      <Button
+                        colorScheme="red"
+                        onClick={() => {
+                          onclose;
+                          removeCommentHandler(commentId);
+                          handleRemoveComment(commentId);
+                        }}
+                        ml={3}
+                      >
+                        Delete
+                      </Button>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialogOverlay>
+              </AlertDialog>
+            </>
+          )}
         </Flex>
       </CardHeader>
-      <DeleteIcon />
       <CardBody display="flex" justifyContent="flex-start">
         <Text>{comment.body}</Text>
         <Button
