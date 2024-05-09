@@ -1,10 +1,13 @@
 import axios from "axios";
 
-const getArticles = () => {
+const getArticles = ( topic = "" ) =>
+{
+  const url = topic
+    ? `https://project-nc-news-xdpp.onrender.com/api/articles?topic=${topic}`
+    : `https://project-nc-news-xdpp.onrender.com/api/articles`;
   return axios
-    .get(`https://project-nc-news-xdpp.onrender.com/api/articles`)
-      .then( ( { data: { articles } } ) =>
-      {
+    .get(url)
+    .then(({ data: { articles } }) => {
       return articles;
     })
     .catch((err) => {

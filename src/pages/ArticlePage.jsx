@@ -15,7 +15,7 @@ const ArticlePage = () => {
   const [currentArticle, setCurrentArticle] = useState("");
   const [currentComments, setCurrentComments] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const { article_id } = useParams();
+  const { article_id} = useParams();
   const { user } = useContext(UserContext);
 
   useEffect(() => {
