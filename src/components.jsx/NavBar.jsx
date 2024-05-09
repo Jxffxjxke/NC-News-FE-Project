@@ -1,9 +1,11 @@
 import {
   Avatar,
+  Box,
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
   Tag,
+  Text
 } from "@chakra-ui/react";
 import { useContext } from "react";
 import { UserContext } from "../contexts/User";
@@ -28,14 +30,19 @@ const NavBar = () => {
         </BreadcrumbItem>
 
         <BreadcrumbItem>
-          <BreadcrumbLink href="/login">Log In</BreadcrumbLink>
+          <BreadcrumbLink href="/login">
+            {user.username ? "Log Out" : "Log In"}
+          </BreadcrumbLink>
         </BreadcrumbItem>
 
         <BreadcrumbItem>
           <BreadcrumbLink href="/about">About</BreadcrumbLink>
         </BreadcrumbItem>
       </Breadcrumb>
-      <Avatar ml="auto" src={user.avatar_url} />
+      <Box ml="auto" display='flex' alignItems='center'>
+        <Text>{user.username}</Text>
+        <Avatar src={user.avatar_url} />
+      </Box>
     </div>
   );
 };
