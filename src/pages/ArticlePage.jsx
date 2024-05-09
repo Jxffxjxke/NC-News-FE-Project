@@ -8,12 +8,15 @@ import CommentsSection from "../components.jsx/CommentsSection";
 import ArticleSkeleton from "../components.jsx/ArticleSkeleton";
 import { CommentSkeletons } from "../components.jsx/CommentSkeletons";
 import { AddComment } from "../components.jsx/AddComment";
+import { useContext } from "react";
+import { UserContext } from "../contexts/User";
 
 const ArticlePage = () => {
   const [currentArticle, setCurrentArticle] = useState("");
   const [currentComments, setCurrentComments] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const { article_id } = useParams();
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     getArticle(article_id)
@@ -47,10 +50,7 @@ const ArticlePage = () => {
     return (
       <main>
         <Article article={currentArticle} />
-        <AddComment
-          comments={currentComments}
-          setCurrentComments={setCurrentComments}
-        />
+        <AddComment user={user} setCurrentComments={setCurrentComments} />
         <CommentsSection comments={currentComments} />
       </main>
     );

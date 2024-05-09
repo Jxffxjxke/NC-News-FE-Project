@@ -10,12 +10,13 @@ import {
   Heading,
   Text,
 } from "@chakra-ui/react";
+import { DeleteIcon } from "@chakra-ui/icons";
 import getUserImg from "../utils/getUserImg";
-import { useState } from "react";
+import {useState } from "react";
 
-const Comment = ({ comment }) => {
+const Comment = ( { comment } ) =>
+{
   const [userImg, setUserImg] = useState("");
-
   getUserImg(comment.author).then((img) => {
     setUserImg(img);
   });
@@ -34,6 +35,7 @@ const Comment = ({ comment }) => {
           </Flex>
         </Flex>
       </CardHeader>
+      <DeleteIcon />
       <CardBody display="flex" justifyContent="flex-start">
         <Text>{comment.body}</Text>
         <Button
