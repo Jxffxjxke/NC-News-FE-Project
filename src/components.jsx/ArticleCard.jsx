@@ -8,6 +8,7 @@ import {
   Button,
   Text,
   Divider,
+  Box,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
@@ -22,20 +23,22 @@ const ArticleCard = ({ article }) => {
           alt="Green double couch with wooden legs"
           borderRadius="lg"
         />
+        <Box display='flex' justifyContent='space-between'>
+          <Text color="teal" fontSize="md">
+            By {article.author}
+          </Text>
+          <Text>{article.votes} votes</Text>
+        </Box>
         <Stack mt="6" spacing="3">
           <Heading size="md">{article.title}</Heading>
           <Text>{article.body.slice(0, 50)}...</Text>
-          <div className="author-votes-container">
-            <Text color="teal" fontSize="md">
-              By {article.author}
-            </Text>
-            <Text>{article.votes} votes</Text>
-          </div>
         </Stack>
       </CardBody>
       <Divider />
       <CardFooter className="article-footer">
-        <Link to={`/articles/${article.article_id}`}><Button colorScheme="teal">Read More</Button></Link>
+        <Link to={`/articles/${article.article_id}`}>
+          <Button colorScheme="teal">Read More</Button>
+        </Link>
         <Text color="teal">{articleDate}</Text>
       </CardFooter>
     </Card>

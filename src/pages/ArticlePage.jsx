@@ -6,6 +6,8 @@ import getComments from "../utils/getComments";
 import { Alert, AlertIcon } from "@chakra-ui/react";
 import CommentsSection from "../components.jsx/CommentsSection";
 import ArticleSkeleton from "../components.jsx/ArticleSkeleton";
+import { CommentSkeletons } from "../components.jsx/CommentSkeletons";
+import { AddComment } from "../components.jsx/AddComment";
 
 const ArticlePage = () => {
   const [currentArticle, setCurrentArticle] = useState("");
@@ -35,11 +37,20 @@ const ArticlePage = () => {
   }, [article_id]);
 
   if (isLoading) {
-    return <ArticleSkeleton />;
+    return (
+      <>
+        <ArticleSkeleton />
+        <CommentSkeletons />
+      </>
+    );
   } else {
     return (
       <main>
         <Article article={currentArticle} />
+        <AddComment
+          comments={currentComments}
+          setCurrentComments={setCurrentComments}
+        />
         <CommentsSection comments={currentComments} />
       </main>
     );
