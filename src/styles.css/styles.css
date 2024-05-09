@@ -6,12 +6,6 @@
   text-decoration: underline;
 }
 
-.author-votes-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
 .article-footer {
   display: flex;
   justify-content: space-between;
@@ -25,4 +19,9 @@
 .article-button-footer {
   display: flex;
   justify-content: space-around;
+}
+
+#comment-input {
+  display: flex;
+  width: auto;
 }

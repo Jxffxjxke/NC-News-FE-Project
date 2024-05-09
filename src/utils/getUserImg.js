@@ -5,6 +5,9 @@ const getUserImg = (username) => {
     .get(`https://project-nc-news-xdpp.onrender.com/api/users/${username}`)
     .then(({ data: { user } }) => {
       return user.avatar_url;
+    })
+    .catch((err) => {
+      return err;
     });
 };
 
