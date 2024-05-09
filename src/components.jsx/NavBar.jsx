@@ -5,7 +5,7 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
   Tag,
-  Text
+  Text,
 } from "@chakra-ui/react";
 import { useContext } from "react";
 import { UserContext } from "../contexts/User";
@@ -18,7 +18,7 @@ const NavBar = () => {
       <Tag className="logo" colorScheme="teal" p="0.6rem">
         NC_News
       </Tag>
-      <TopicsMenu />
+      <TopicsMenu/>
       <Breadcrumb
         className="nav"
         bg="teal"
@@ -39,7 +39,7 @@ const NavBar = () => {
           <BreadcrumbLink href="/about">About</BreadcrumbLink>
         </BreadcrumbItem>
       </Breadcrumb>
-      <Box ml="auto" display='flex' alignItems='center'>
+      <Box ml="auto" display="flex" alignItems="center">
         <Text>{user.username}</Text>
         <Avatar src={user.avatar_url} />
       </Box>

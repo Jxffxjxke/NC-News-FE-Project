@@ -1,8 +1,6 @@
 import axios from "axios";
 
-export const removeCommentHandler = ( commentId ) =>
-{
-  console.log(commentId);
+export const removeCommentHandler = (commentId) => {
   return axios
     .delete(
       `https://project-nc-news-xdpp.onrender.com/api/comments/${commentId}`
