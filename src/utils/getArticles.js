@@ -1,17 +1,29 @@
 import axios from "axios";
 
-const getArticles = ( topic = "" ) =>
-{
-  const url = topic
-    ? `https://project-nc-news-xdpp.onrender.com/api/articles?topic=${topic}`
-    : `https://project-nc-news-xdpp.onrender.com/api/articles`;
+const getArticles = (topic = "", sortBy = 0) => {
+  const baseUrl = `https://project-nc-news-xdpp.onrender.com/api/articles`;
+  const topicQuery = topic ? `?topic=${topic}` : "";
+
+  const sortQueries = [
+    `sortBy=created_at`,
+    `sortBy=created_at&order=asc`,
+    `sortBy=comment_count`,
+    `sortBy=comment_count&order=asc`,
+    `sortBy=votes`,
+    `sortBy=votes&order=asc`,
+  ];
+
+  const separator = topicQuery ? "&" : "?";
+  const sortQuery = sortQueries[sortBy];
+
+  const finalUrl = `${baseUrl}${topicQuery}${separator}${sortQuery}`;
+
   return axios
-    .get(url)
-    .then(({ data: { articles } }) => {
-      return articles;
-    })
-    .catch((err) => {
-      console.log(err);
+    .get(finalUrl)
+    .then(({ data: { articles } }) => articles)
+    .catch((error) => {
+      console.error("Error fetching articles:", error);
+      throw error;
     });
 };
 
