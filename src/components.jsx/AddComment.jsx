@@ -33,7 +33,7 @@ export const AddComment = ({ setCurrentComments, err, setErr }) => {
     setCurrentComments((prevComments) => [
       {
         body: commentInput,
-        author: user.username ? user.username : "Guest",
+        author: user.username,
         created_at: new Date().toISOString(),
         votes: 0,
         comment_id: 1,
