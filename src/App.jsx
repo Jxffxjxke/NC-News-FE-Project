@@ -5,6 +5,7 @@ import NavBar from "./components.jsx/NavBar";
 import Login from "./components.jsx/Login";
 import ArticlesByTopic from "./pages/ArticlesByTopic";
 import ErrorPage from "./pages/Error";
+import About from "./pages/About";
 
 function App() {
   return (
@@ -12,9 +13,11 @@ function App() {
       <NavBar />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/articles/:article_id" element={<ArticlePage />} />
         <Route path="/:topic" element={<ArticlesByTopic />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/about" element={<About />} />
         <Route path="/error" element={<ErrorPage />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>

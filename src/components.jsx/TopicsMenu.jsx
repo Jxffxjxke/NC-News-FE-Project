@@ -18,12 +18,12 @@ const TopicsMenu = () => {
     <Menu>
       <MenuButton
         bg="teal"
-        borderLeftRadius="0.3rem"
-        py="0.6rem"
-        pl="0.4rem"
+        borderRadius="0.3rem"
+        px="0.8rem"
+        mx='2rem'
         className="topics-btn"
       >
-        Topics /
+        Topics
       </MenuButton>
       <MenuList>
         {currentTopics.map(({ slug }) => {
