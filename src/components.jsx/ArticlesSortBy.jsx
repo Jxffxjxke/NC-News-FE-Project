@@ -1,6 +1,16 @@
 import { Select } from "@chakra-ui/react";
 
 const ArticlesSortBy = ({ setSortBy }) => {
+
+  const sortOptions = {
+    Newest: 0,
+    Oldest: 1,
+    "Most comments": 2,
+    "Least comments": 3,
+    "Most votes": 4,
+    "Least votes": 5,
+  };
+
   return (
     <Select
       mr="auto"
@@ -9,26 +19,13 @@ const ArticlesSortBy = ({ setSortBy }) => {
       ml="1.2rem"
       placeholder="Newest"
       onChange={({ target: { value } }) => {
-        let sortValue = 0;
-        if (value === "Oldest") {
-          sortValue = 1;
-        } else if (value === "Most comments") {
-          sortValue = 2;
-        } else if (value === "Least comments") {
-          sortValue = 3;
-        } else if (value === "Most votes") {
-          sortValue = 4;
-        } else if (value === "Least votes") {
-          sortValue = 5;
-        }
+        const sortValue = sortOptions[value] ?? 0;
         setSortBy(sortValue);
       }}
     >
-      <option>Oldest</option>
-      <option>Most comments</option>
-      <option>Least comments</option>
-      <option>Most votes</option>
-      <option>Least votes</option>
+      {Object.keys(sortOptions).map((option) => (
+        <option key={option}>{option}</option>
+      ))}
     </Select>
   );
 };

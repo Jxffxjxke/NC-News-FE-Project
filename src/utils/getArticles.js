@@ -17,10 +17,17 @@ const getArticles = (topic = "", sortBy = 0) => {
   const sortQuery = sortQueries[sortBy];
 
   const finalUrl = `${baseUrl}${topicQuery}${separator}${sortQuery}`;
+  console.log(finalUrl);
 
   return axios
     .get(finalUrl)
-    .then(({ data: { articles } }) => articles)
+    .then(({ data: { articles } }) => {
+      if (sortBy === 4) {
+        return articles.sort((a, b) => b.votes - a.votes);
+      } else if (sortBy === 5) {
+        return articles.sort((a, b) => a.votes - b.votes);
+      } else return articles;
+    })
     .catch((error) => {
       console.error("Error fetching articles:", error);
       throw error;
