@@ -5,7 +5,8 @@ import { useState } from "react";
 
 const ArticlesByTopic = () => {
   const { topic } = useParams();
-  const [sortBy, setSortBy] = useState(0);
+  const [ sortBy, setSortBy ] = useState( 0 );
+  
   return (
     <>
       <ArticlesSortBy setSortBy={setSortBy} />

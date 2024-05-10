@@ -1,4 +1,5 @@
 import axios from "axios";
+import { handleError } from "./handleError";
 
 const getArticles = (topic = "", sortBy = 0) => {
   const baseUrl = `https://project-nc-news-xdpp.onrender.com/api/articles`;
@@ -17,7 +18,6 @@ const getArticles = (topic = "", sortBy = 0) => {
   const sortQuery = sortQueries[sortBy];
 
   const finalUrl = `${baseUrl}${topicQuery}${separator}${sortQuery}`;
-  console.log(finalUrl);
 
   return axios
     .get(finalUrl)
@@ -29,8 +29,7 @@ const getArticles = (topic = "", sortBy = 0) => {
       } else return articles;
     })
     .catch((error) => {
-      console.error("Error fetching articles:", error);
-      throw error;
+      handleError();
     });
 };
 

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { handleError } from "./handleError";
 
 const getTopics = () => {
   return axios
@@ -6,10 +7,6 @@ const getTopics = () => {
     .then(({ data: { topics } }) => {
       return topics;
     })
-    .catch( ( err ) =>
-    {
-      console.log(err);
-    });
 };
 
 export default getTopics;

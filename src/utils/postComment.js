@@ -1,6 +1,7 @@
 import axios from "axios";
 
-export const postComment = (body, articleId, author) => {
+export const postComment = (body, articleId, author, setErr) => {
+  setErr(false);
   axios
     .post(
       `https://project-nc-news-xdpp.onrender.com/api/articles/${articleId}/comments`,
@@ -13,6 +14,6 @@ export const postComment = (body, articleId, author) => {
       return data;
     })
     .catch((err) => {
-      console.log(err);
+      setErr(true);
     });
 };

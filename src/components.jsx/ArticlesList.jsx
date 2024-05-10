@@ -35,7 +35,6 @@ const ArticlesList = ({ topic, sortBy }) => {
       </SimpleGrid>
     );
   }
-
   return (
     <SimpleGrid
       spacing={3}

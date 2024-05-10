@@ -1,41 +1,37 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import getArticle from "../utils/getArticle";
-import Article from "../components.jsx/Article";
 import getComments from "../utils/getComments";
-import { Alert, AlertIcon } from "@chakra-ui/react";
-import CommentsSection from "../components.jsx/CommentsSection";
+import Article from "../components.jsx/Article";
 import ArticleSkeleton from "../components.jsx/ArticleSkeleton";
+import CommentsSection from "../components.jsx/CommentsSection";
 import { CommentSkeletons } from "../components.jsx/CommentSkeletons";
 import { AddComment } from "../components.jsx/AddComment";
-import { useContext } from "react";
 import { UserContext } from "../contexts/User";
+import RequestErrorBanner from "../components.jsx/RequestErrorBanner";
 
 const ArticlePage = () => {
-  const [currentArticle, setCurrentArticle] = useState("");
+  const [err, setErr] = useState(false);
+  const [currentArticle, setCurrentArticle] = useState(null);
   const [currentComments, setCurrentComments] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const { article_id} = useParams();
+  const { article_id } = useParams();
   const { user } = useContext(UserContext);
 
   useEffect(() => {
     getArticle(article_id)
       .then((article) => {
         setCurrentArticle(article);
+        return getComments(article_id);
       })
-      .then(() => {
-        getComments(article_id).then((comments) => {
-          setCurrentComments(comments);
-          setIsLoading(false);
-        });
+      .then((comments) => {
+        setCurrentComments(comments);
       })
-      .catch((err) => {
-        return (
-          <Alert status="error">
-            <AlertIcon />
-            There was an error processing this request
-          </Alert>
-        );
+      .catch((error) => {
+        setErr(true);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }, [article_id]);
 
@@ -46,18 +42,26 @@ const ArticlePage = () => {
         <CommentSkeletons />
       </>
     );
-  } else {
-    return (
-      <main>
-        <Article article={currentArticle} />
-        <AddComment user={user} setCurrentComments={setCurrentComments} />
-        <CommentsSection
-          comments={currentComments}
-          setCurrentComments={setCurrentComments}
-        />
-      </main>
-    );
   }
+
+  if (err) {
+    return <RequestErrorBanner />;
+  }
+  return (
+    <main>
+      <Article article={currentArticle} setErr={setErr} />
+      <AddComment
+        user={user}
+        setCurrentComments={setCurrentComments}
+        err={err}
+        setErr={setErr}
+      />
+      <CommentsSection
+        comments={currentComments}
+        setCurrentComments={setCurrentComments}
+      />
+    </main>
+  );
 };
 
 export default ArticlePage;

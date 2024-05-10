@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const articleVote = (articleId, inc_votes) => {
+export const articleVote = (articleId, inc_votes, setErr) => {
   return axios
     .patch(
       `https://project-nc-news-xdpp.onrender.com/api/articles/${articleId}`,
@@ -10,6 +10,6 @@ export const articleVote = (articleId, inc_votes) => {
       return article;
     })
     .catch((err) => {
-      return err;
+      setErr(true);
     });
 };
