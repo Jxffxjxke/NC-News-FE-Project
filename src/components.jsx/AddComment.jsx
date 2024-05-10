@@ -8,6 +8,7 @@ import {
   CardHeader,
   Flex,
   Heading,
+  Text,
   Textarea,
 } from "@chakra-ui/react";
 import { useState } from "react";
@@ -15,8 +16,9 @@ import { postComment } from "../utils/postComment";
 import { useParams } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext } from "../contexts/User";
+import RequestErrorBanner from "./RequestErrorBanner";
 
-export const AddComment = ({ setCurrentComments }) => {
+export const AddComment = ({ setCurrentComments, err, setErr }) => {
   const [commentInput, setCommentInput] = useState("");
   const [isValid, setIsValid] = useState(true);
   const { article_id } = useParams();
@@ -31,17 +33,20 @@ export const AddComment = ({ setCurrentComments }) => {
     setCurrentComments((prevComments) => [
       {
         body: commentInput,
-        author: user.username ? user.username : 'Guest',
+        author: user.username ? user.username : "Guest",
         created_at: new Date().toISOString(),
         votes: 0,
         comment_id: 1,
       },
       ...prevComments,
     ]);
-    postComment(commentInput, article_id, user.username);
+    postComment(commentInput, article_id, user.username, setErr);
     setCommentInput("");
   };
 
+  if (err) {
+    return <RequestErrorBanner />;
+  }
   return (
     <Card p="2rem">
       <CardHeader>

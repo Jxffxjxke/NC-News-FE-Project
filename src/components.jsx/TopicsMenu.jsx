@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import getTopics from "../utils/getTopics";
 import { useNavigate } from "react-router-dom";
 
+
 const TopicsMenu = () => {
   const navigate = useNavigate();
   const [currentTopics, setCurrentTopics] = useState([]);

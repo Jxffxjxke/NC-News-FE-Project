@@ -11,7 +11,7 @@ import {
 import React, { useState } from "react";
 import { articleVote } from "../utils/articleVote";
 
-const Article = ({ article }) => {
+const Article = ({ article, setErr }) => {
   const [articleVotes, setArticleVotes] = useState(article.votes);
   const [liked, setLiked] = useState(false);
   const [disliked, setDisliked] = useState(false);
@@ -20,9 +20,8 @@ const Article = ({ article }) => {
     setArticleVotes((previous) => {
       return (previous += vote);
     });
-    articleVote(article.article_id, vote);
+    articleVote(article.article_id, vote, setErr)
   };
-
   return (
     <>
       <Card>
@@ -89,7 +88,7 @@ const Article = ({ article }) => {
             </Button>
           </Flex>
         </CardFooter>
-        <Text size="md" color='teal' ml="2rem" mb="1rem">
+        <Text size="md" color="teal" ml="2rem" mb="1rem">
           {article.comment_count} Comments
         </Text>
       </Card>
