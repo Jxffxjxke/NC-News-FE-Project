@@ -3,25 +3,22 @@ import ArticleCard from "./ArticleCard";
 import { useState, useEffect } from "react";
 import getArticles from "../utils/getArticles";
 import ArticleSkeleton from "./ArticleSkeleton";
-import { useParams } from "react-router-dom";
 
-const ArticlesList = () => {
+const ArticlesList = ({ topic, sortBy }) => {
   const [currentArticles, setCurrentArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const { topic } = useParams();
 
   useEffect(() => {
-
     setIsLoading(true);
 
-    getArticles(topic)
+    getArticles(topic, sortBy)
       .then((articles) => {
         setCurrentArticles(articles);
       })
       .finally(() => {
         setIsLoading(false);
       });
-  }, [topic]);
+  }, [topic, sortBy]);
 
   if (isLoading) {
     return (
