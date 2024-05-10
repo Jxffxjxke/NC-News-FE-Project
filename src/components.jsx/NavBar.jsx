@@ -16,28 +16,27 @@ const NavBar = () => {
   return (
     <div className="head">
       <Tag className="logo" colorScheme="teal" p="0.6rem">
-        NC_News
+        <Text fontSize="large">NC_News</Text>
       </Tag>
       <TopicsMenu />
-      <Box display='flex' flexWrap='wrap'>
-        <Breadcrumb
-          className="nav"
-          bg="teal"
-          borderRightRadius="0.3rem"
-          p="0.6rem"
-        >
+      <Box>
+        <Breadcrumb className="nav" bg="teal" borderRadius="0.3rem" p="0.8rem">
           <BreadcrumbItem>
-            <BreadcrumbLink href="/">Home</BreadcrumbLink>
+            <BreadcrumbLink href="/home" ml="1rem" mr="2rem">
+              Home
+            </BreadcrumbLink>
           </BreadcrumbItem>
 
           <BreadcrumbItem>
-            <BreadcrumbLink href="/login">
+            <BreadcrumbLink href="/login" mx="2rem">
               {user.username ? "Log Out" : "Log In"}
             </BreadcrumbLink>
           </BreadcrumbItem>
 
           <BreadcrumbItem>
-            <BreadcrumbLink href="/about">About</BreadcrumbLink>
+            <BreadcrumbLink href="/about" ml="2rem" mr="1rem">
+              About
+            </BreadcrumbLink>
           </BreadcrumbItem>
         </Breadcrumb>
       </Box>
