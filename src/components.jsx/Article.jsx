@@ -89,6 +89,9 @@ const Article = ({ article }) => {
             </Button>
           </Flex>
         </CardFooter>
+        <Text size="md" color='teal' ml="2rem" mb="1rem">
+          {article.comment_count} Comments
+        </Text>
       </Card>
     </>
   );
